@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: cornetafc_dev
+
+test:
+  <<: *default
+  database: cornetafc_test
+
+production:
+  <<: *default
+  database: cornetafc_prod
+  username: corneta
+  password: <%= ENV['CORNETA_DATABASE_PASSWORD'] %>
