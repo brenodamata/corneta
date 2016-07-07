@@ -11,7 +11,7 @@ class PostsController < InheritedResources::Base
 
   private
     def set_team
-      @team = Team.find(params[:team_id])
+      @team = Team.friendly.find(params[:team_id])
     end
 
     def post_params

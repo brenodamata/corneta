@@ -1,6 +1,8 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
 
+  # slug: t.update(slug: t.name.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').downcase.strip.gsub(' ', '-'))
+
   def index
     @teams = Team.all
   end
@@ -51,7 +53,7 @@ class TeamsController < ApplicationController
 
   private
     def set_team
-      @team = Team.find(params[:id])
+      @team = Team.friendly.find(params[:id])
     end
 
     def team_params

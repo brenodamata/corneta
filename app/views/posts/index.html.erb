@@ -16,13 +16,11 @@
   <tbody>
     <% @posts.each do |post| %>
       <tr>
-        <td><%= post.title %></td>
+        <td><%= link_to post.title, team_post_path(@team, post) %></td>
         <td><%= post.description %></td>
         <td><%= post.team.name %></td>
         <td><%= post.admin_user %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_team_post_path(@team, post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', team_post_path(@team, post) %></td>
       </tr>
     <% end %>
   </tbody>

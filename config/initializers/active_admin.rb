@@ -230,4 +230,10 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+  config.skip_before_filter :authenticate_user!
+
+  # permit params please
+  # config.before_filter do
+  #   params.permit!
+  # end
 end

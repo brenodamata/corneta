@@ -5,9 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   def after_sign_in_path_for(resource)
-    byebug
     if resource.is_a?(User) && resource.team.present?
       team_posts_url(resource.team)
+    elsif resource.is_a?(AdminUser)
+      # TODO: add a root from admin
+      admin_root_url
     else
       teams_url
     end
