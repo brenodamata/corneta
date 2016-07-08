@@ -1,4 +1,25 @@
-<h1>Pages#main</h1>
-<p>Find me in app/views/pages/main.html.erb</p>
+<div class="row">
+  <div class="col-sm-12 text-xs-center bootstrap-welcome">
+    <h1>Corneta FC</h1>
+    <p class="lead">Logline here</p>
+  </div>
+</div>
 
-<%= link_to "Signout", destroy_user_session_path, method: :delete %>
+<div class="container" style="max-width: 640px;>
+  <div class="row">
+    <% Team.all.each do |team| %>
+      <div class="col-sm-3 text-xs-center bootstrap-welcome">
+        <p class="lead">
+          <%= link_to image_tag("#{team.slug}.png", border: 0), team_posts_path(team) %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12 text-xs-center bootstrap-welcome">
+    <p class="lead"><%= link_to "Times", teams_path %></p>
+    <p class="lead"><%= link_to "Signout", destroy_user_session_path, method: :delete %></p>
+  </div>
+</div>

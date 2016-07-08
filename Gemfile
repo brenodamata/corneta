@@ -43,6 +43,16 @@ gem 'omniauth-twitter'
 gem 'twitter'
 gem 'activeadmin', '1.0.0.pre1'
 gem 'friendly_id', '~> 5.0.0'
+# bootstrap
+# gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+# gem "twitter-bootstrap-rails"
+gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'autoprefixer-rails'
+gem 'bh', '~> 1.2' # http://fullscreen.github.io/bh/#overview-install
+# For tooltips and popover:
+source 'https://rails-assets.org' do
+  gem 'rails-assets-tether', '>= 1.1.0'
+end
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

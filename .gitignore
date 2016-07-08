@@ -18,3 +18,8 @@
 /vendor/*
 *.DS_Store
 .byebug_history
+
+# Ignore globo bootstrap for now
+app/assets/css/*
+app/assets/img/*
+app/assets/js/*
