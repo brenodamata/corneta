@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161005010821) do
+ActiveRecord::Schema.define(version: 20161005031812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,16 @@ ActiveRecord::Schema.define(version: 20161005010821) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "competitors", force: :cascade do |t|
+    t.integer  "league_id"
+    t.integer  "team_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "competitors", ["league_id"], name: "index_competitors_on_league_id", using: :btree
+  add_index "competitors", ["team_id"], name: "index_competitors_on_team_id", using: :btree
+
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
     t.integer  "sluggable_id",              null: false
@@ -83,6 +93,27 @@ ActiveRecord::Schema.define(version: 20161005010821) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "leagues", force: :cascade do |t|
+    t.string   "name"
+    t.string   "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "matches", force: :cascade do |t|
+    t.integer  "host_id"
+    t.integer  "visitor_id"
+    t.integer  "round_id"
+    t.integer  "league_id"
+    t.integer  "host_score"
+    t.integer  "visitor_score"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "matches", ["league_id"], name: "index_matches_on_league_id", using: :btree
+  add_index "matches", ["round_id"], name: "index_matches_on_round_id", using: :btree
+
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
@@ -95,6 +126,15 @@ ActiveRecord::Schema.define(version: 20161005010821) do
 
   add_index "posts", ["admin_user_id"], name: "index_posts_on_admin_user_id", using: :btree
   add_index "posts", ["team_id"], name: "index_posts_on_team_id", using: :btree
+
+  create_table "rounds", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "league_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "rounds", ["league_id"], name: "index_rounds_on_league_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"
@@ -119,7 +159,14 @@ ActiveRecord::Schema.define(version: 20161005010821) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["team_id"], name: "index_users_on_team_id", using: :btree
 
+  add_foreign_key "competitors", "leagues"
+  add_foreign_key "competitors", "teams"
   add_foreign_key "identities", "users"
+  add_foreign_key "matches", "leagues"
+  add_foreign_key "matches", "rounds"
+  add_foreign_key "matches", "teams", column: "host_id"
+  add_foreign_key "matches", "teams", column: "visitor_id"
   add_foreign_key "posts", "admin_users"
   add_foreign_key "posts", "teams"
+  add_foreign_key "rounds", "leagues"
 end
