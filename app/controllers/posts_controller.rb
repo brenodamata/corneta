@@ -9,9 +9,17 @@ class PostsController < InheritedResources::Base
     @posts = @team.posts
   end
 
+  def new
+    @post = current_user.posts.build
+  end
+
+  def create
+
+  end
+
   private
     def set_team
-      @team = Team.friendly.find(params[:team_id])
+      @team = Team.friendly.find(current_user.team)
     end
 
     def post_params

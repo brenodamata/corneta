@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:show, :index]
   end
 
+  resources :posts, only: [:new, :create]
+
   root to: 'pages#main'
 
   namespace :admin do

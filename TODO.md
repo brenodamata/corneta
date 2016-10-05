@@ -1,0 +1,1 @@
+- [x] New page for posts
